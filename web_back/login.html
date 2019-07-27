@@ -23,13 +23,43 @@
             <form class="login_form">
                 <i class="iconfont icon-user"></i>
                 <i class="iconfont icon-key"></i>
-                <input type="text" class="input_txt" placeholder="邮箱/手机号">
-                <input type="password" class="input_pass" placeholder="密码">
-                <input type="submit" class="input_sub" value="登 录">
+                <input type="text" id="name" class="input_txt" placeholder="邮箱/手机号">
+                <input type="password" id="password" class="input_pass" placeholder="密码">
+                <input type="button" id="btn" class="input_sub" value="登 录">
             </form>
         </div>
 
     </div> 
+
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script>
+        //给按钮设置点击事件
+        $('#btn').click(function(){
+            //获取内容
+            var name = $("#name").val();
+            var password = $('#password').val();
+            $.ajax({
+                url:'http://localhost:8000/admin/login',
+                type:'post',
+                data:{
+                    user_name:name,
+                    password:password
+                },
+                success:function(result){
+                    console.log(result)
+                    if(result.code===400){
+                        alert(result.msg)
+                    }else{
+                        alert('登录成功')
+                    }
+                }
+            })
+        })
+    
+    
+    
+    
+    </script>
 
 </body>
 

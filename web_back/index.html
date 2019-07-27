@@ -19,8 +19,8 @@
     <div class="sider">
         <a href="#" class="logo"><img src="images/logo02.png" alt="logo"></a>
         <div class="user_info">
-            <img src="images/2.jpg" alt="person">
-            <span>欢迎&nbsp;&nbsp;李思思</span>
+            <img src="images/2.jpg" alt="person" id="touxiang">
+            <span>欢迎&nbsp;&nbsp;<span id="yonghu">李思思</span></span>
             <b>管理员</b>
         </div>
         <div class="menu">
@@ -135,6 +135,18 @@
                     window.location.href = "login.html";
                 }
             })
+        })
+
+
+
+
+
+        //-----------------------------------------------------------用户信息获取
+        $.get('http://localhost:8000/admin/getuser',function(result){
+            if(result.code===200){
+                $('#yonghu').text(result.data.nickname);
+                $('#touxiang').attr('src',result.data.user_pic);
+            }
         })
 
     </script>

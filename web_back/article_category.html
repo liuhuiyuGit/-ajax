@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr>
+                    <!-- <tr>
                         <td>未分类</td>
                         <td>uncategorized</td>
                         <td class="text-center">
@@ -67,7 +67,7 @@
                                 class="btn btn-info btn-xs">编辑</a>
                             <a href="javascript:deleteTr( 4 );" class="btn btn-danger btn-xs">删除</a>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
                 <tfoot>
                     <tr>
@@ -115,7 +115,7 @@
               <td class="text-center">
                   <a href="javascript:editTr({&quot;id&quot;:&quot;2&quot;,&quot;slug&quot;:&quot;funny&quot;,&   quot;name&quot;:&quot;奇趣事&quot;});"
                       class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:deleteTr( 2 );" class="btn btn-danger btn-xs">删除</a>
+                  <a href="javascript:deleteTr({{item.id}});" class="btn btn-danger btn-xs">删除</a>
               </td>
         </tr>
       {{/each}}
@@ -149,14 +149,30 @@
 
 
     <script>
-        //----------------------------------------------------类别查询
-        $("#tbody").empty();
-        $.get('http://localhost:8000/admin/category_search',function(res){
-            console.log(res)
+        function xinZeng (){
+            $("#tbody").empty();
+            $.get('http://localhost:8000/admin/category_search',function(res){
+            // console.log(res)
             if(res.code===200){
                 $('#tbody').html(template("categoryTr", res))
             }
         })
+        }
+        //----------------------------------------------------类别查询
+        xinZeng()
+
+        //-----------------------------------------------------删除功能
+        function deleteTr(id) {
+            // console.log(id)
+            $.post('http://localhost:8000/admin/category_delete',{id:id},function(res){
+                console.log(res)
+                if(res.code===200){
+                    xinZeng();
+                }
+
+            })
+        }
+        
     
     
     
